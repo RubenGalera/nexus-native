@@ -3,6 +3,7 @@ import { Slot, SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import React, { useEffect } from "react";
 import { AuthProvider } from "../context/AuthContext";
+import { CarritoProvider } from "../context/CarritoContext";
 
 // Ocultamos el SplashScreen hasta que las fuentes estén cargadas
 SplashScreen.preventAutoHideAsync();
@@ -24,7 +25,9 @@ const RootLayout = () => {
     if (!fontsLoaded && !error) return null;
     return (
         <AuthProvider>
-            <Slot />
+            <CarritoProvider>
+                <Slot />
+            </CarritoProvider>
         </AuthProvider>
     );
 };
