@@ -2,6 +2,7 @@ import "../global.css";
 import { Slot, SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import React, { useEffect } from "react";
+import { AuthProvider } from "../context/AuthContext";
 
 // Ocultamos el SplashScreen hasta que las fuentes estén cargadas
 SplashScreen.preventAutoHideAsync();
@@ -21,7 +22,11 @@ const RootLayout = () => {
     }, [fontsLoaded, error]);
 
     if (!fontsLoaded && !error) return null;
-    return <Slot />;
+    return (
+        <AuthProvider>
+            <Slot />
+        </AuthProvider>
+    );
 };
 
 export default RootLayout;
