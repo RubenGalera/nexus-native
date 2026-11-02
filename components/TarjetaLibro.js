@@ -9,8 +9,9 @@ const TarjetaLibro = ({ libro }) => {
     return (
         // w-1/2: dos tarjetas por fila (en la web: grid-cols-2)
         <View className="w-1/2 px-2 mb-4">
+            {/* withAnchor: coloca el listado del catálogo debajo del detalle (flecha de volver desde Inicio o Mis libros) */}
             <Pressable
-                onPress={() => router.push(`/catalogo/${libro.id}`)}
+                onPress={() => router.push(`/catalogo/${libro.id}`, { withAnchor: true })}
                 className="bg-superficie border border-borde rounded-lg overflow-hidden active:border-oro"
             >
                 {/* Next: aspect-[3/4] → RN: aspectRatio (height: undefined para que no use la altura original de la imagen) */}
