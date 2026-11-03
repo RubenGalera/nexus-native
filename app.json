@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "nexus-native",
+    "name": "Nexus",
     "slug": "nexus-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "scheme": "nexus",
     "ios": {
       "supportsTablet": true
