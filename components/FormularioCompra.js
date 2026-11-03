@@ -3,6 +3,7 @@ import { View, Text, TextInput, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useCarrito } from "../context/CarritoContext";
 import ResumenPedido from "./ResumenPedido";
+import * as Haptics from "expo-haptics";
 
 // Mismos pasos, campos y validaciones que el CheckoutForm de Next
 const PASOS = ["Datos personales", "Envío", "Pago"];
@@ -77,7 +78,11 @@ const FormularioCompra = () => {
     const siguiente = () => {
         const resultado = VALIDACIONES[paso](form);
         setErrores(resultado);
-        if (Object.values(resultado).some(Boolean)) return; // hay algún error: no avanza
+        if (Object.values(resultado).some(Boolean)) {
+            // Háptica de aviso: hay campos que corregir (Warning, no Error: no ha fallado nada)
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+            return;
+        }
         if (paso < 2) {
             setPaso(paso + 1);
             return;
@@ -85,7 +90,10 @@ const FormularioCompra = () => {
         // Último paso: se guarda el pedido y los libros pasan a "comprados"
         setPedido({ nombre: form.nombre, email: form.email, unidades: carrito.length, total });
         confirmarCompra();
+        // Háptica de éxito: el pedido está confirmado (con el resultado, no al pulsar)
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     };
+
 
     // Pedido confirmado
     if (pedido) {

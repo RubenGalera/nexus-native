@@ -1,6 +1,7 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import * as Haptics from "expo-haptics";
 
 export default function LoginForm({ onLoginSuccess }) {
     const [usuario, setUsuario] = useState("");
@@ -11,6 +12,8 @@ export default function LoginForm({ onLoginSuccess }) {
     const handleLogin = async () => {
         const result = await login(usuario, contrasena);
         if (result.success && onLoginSuccess) onLoginSuccess();
+        // Háptica de error: el usuario suele mirar el teclado, no el mensaje (Nielsen H9)
+        if (!result.success) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     };
 
     const deshabilitado = loginLoading || !usuario || !contrasena;
